@@ -8,11 +8,15 @@ using System.Web;
 
 namespace Shop.DataAccessLayer
 {
-    public class CoursesContext: DbContext
+    public class CoursesContext : DbContext
     {
         public CoursesContext() : base("CoursesContext")
         {
 
+        }
+        static CoursesContext()
+        {
+            Database.SetInitializer<CoursesContext>(new CoursesInitializer());
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -23,7 +27,7 @@ namespace Shop.DataAccessLayer
         {
             base.OnModelCreating(modelBuilder);
             // this function turn off convention which automatically create plural for name of table in our DB
-            // does not add "ES" in the end name of table
+            // does not add "S/ES" in the end name of table
             // I created plular properties, I dont want something like Courses -> Courseses
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
