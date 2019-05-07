@@ -23,6 +23,7 @@ namespace Shop.Models
         public decimal PriceOfCourse { get; set; }
         public bool Bestseller { get; set; }
         public bool Hided { get; set; }
+        public string ShortDescriptionOfCourse { get; set; }
 
         public Category Category { get; set; }
     }

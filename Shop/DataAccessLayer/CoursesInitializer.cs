@@ -1,21 +1,17 @@
-﻿using Shop.Models;
+﻿using Shop.Migrations;
+using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
 namespace Shop.DataAccessLayer
 {
-    public class CoursesInitializer : DropCreateDatabaseAlways<CoursesContext>
+    public class CoursesInitializer : MigrateDatabaseToLatestVersion<CoursesContext,Configuration>
     {
-        protected override void Seed(CoursesContext context)
-        {
-            SeedCoursesData(context);
-            base.Seed(context);
-        }
-
-        private void SeedCoursesData(CoursesContext context)
+        public static void SeedCoursesData(CoursesContext context)
         {
             var categories = new List<Category>
             {
@@ -28,7 +24,7 @@ namespace Shop.DataAccessLayer
                 new Category() {CategoryId =7, NameOfCategory = "c#", NameOfIconFile = "c#.png", DescriptionOfCategory = " description c#" }
             };
 
-            categories.ForEach(k => context.Categories.Add(k));
+            categories.ForEach(k => context.Categories.AddOrUpdate(k));
             context.SaveChanges();
 
             var course = new List<Course>
@@ -39,9 +35,8 @@ namespace Shop.DataAccessLayer
                 new Course() { AuthorOfCourse="wojtek", TitleOfCourse = "ASP.NET MVC part 4", CategoryId = 1, PriceOfCourse =99, Bestseller=true, NameOfPictureFile="ASPNETMVCpart4.png", AddedDate = DateTime.Now, DescriptionOfCourse="Description of ASP.NET MVC part 4"}
             };
 
-            course.ForEach(k => context.Courses.Add(k));
+            course.ForEach(k => context.Courses.AddOrUpdate(k));
             context.SaveChanges();
-
         }
     }
 }
