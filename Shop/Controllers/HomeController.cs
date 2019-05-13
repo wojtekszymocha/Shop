@@ -14,12 +14,13 @@ namespace Shop.Controllers
     
         public ActionResult Index()
         {
-            //Category category = new Category { NameOfCategory = "asp.net mvc", NameOfIconFile = "aspNetMVC.png", DescriptionOfCategory ="description" };
-            //Db.Categories.Add(category);
-            //Db.SaveChanges();
-
             var listCategory = Db.Categories.ToList();
             return View();
+        }
+
+        public ActionResult StaticSites(string name)
+        {
+            return View(name);
         }
     }
 }
